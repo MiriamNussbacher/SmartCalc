@@ -27,7 +27,7 @@ namespace SmartCalc.Controllers
             if (_cache.TryGetValue(obj, out object val))
                 return Ok(val.ToString());
             MethodInfo method = typeof(Calulator).GetMethod(obj.Operator.ToLower());
-            if (method==null || obj.Right==0)//method not valid or devide in zero
+            if (method==null)//method not valid or devide in zero
                 return BadRequest();
              Object o= method.Invoke(this,new object[] { obj.Left, obj.Right });
             _cache.Set(obj, o);

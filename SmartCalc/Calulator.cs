@@ -29,7 +29,8 @@ namespace SmartCalc
         }
         public static string divide(int a, int b)
         {
-
+            if (b == 0)
+                return "can't devide by 0 ";
             double res = a / b;
             return $"{a}/{b}={res}";
         }
