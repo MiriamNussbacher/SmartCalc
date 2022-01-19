@@ -13,24 +13,23 @@ namespace SmartCalc.Controllers
     [ApiController]
     public class CalcController : ControllerBase
     {
-        private readonly IMemoryCache _cache;
+       // private readonly IMemoryCache _cache;
         public CalcController(IMemoryCache _cache)
         {
-            this._cache = _cache;
+        //    this._cache = _cache;
         }
 
         [HttpPost]
         public IActionResult calc ([FromBody]Payload obj)
         {
 
-           // Object o;
-            if (_cache.TryGetValue(obj, out object val))
-                return Ok(val.ToString());
-            MethodInfo method = typeof(Calulator).GetMethod(obj.Operator.ToLower());
-            if (method==null)//method not valid or devide in zero
+          
+          
+            MethodInfo method = typeof(Calculator).GetMethod(obj.Operator.ToLower());
+            if (method==null)//method not valid
                 return BadRequest();
              Object o= method.Invoke(this,new object[] { obj.Left, obj.Right });
-            _cache.Set(obj, o);
+           
             return Ok(o.ToString());
         }
 
